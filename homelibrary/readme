@@ -1,0 +1,37 @@
+版本更新sdk
+包含功能：版本更新，轮播图，店铺列表，热门热荐，搜索
+版本：
+    compileSdkVersion 27
+    targetSdkVersion 27
+    minSdkVersion 21
+1.导入方式：
+    在build.gradle添加依赖
+    implementation 'com.github.bujinhai:HomeSDK:1.0.0'
+2.在Application中初始化sdk
+FBaseSdk.init(new FBuilder(this).setSiteID("8a2f462a6325807801632a82b9c91553")
+                .setApplicationID("8a2f462a6aa17470016aa47baa1c0f24").build());
+3.在启动页中，先根据Acp判断权限，权限通过才可以去更新app:
+Acp.getInstance(this).request(new AcpOptions.Builder().setPermissions(
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                        .build(),
+                new AcpListener() {
+                    @Override
+                    public void onGranted() {
+                        //检查版本更新
+                        DialogUtils.getVersionData(MainActivity.this, AppConstant.SITEID);
+                    }
+
+                    @Override
+                    public void onDenied(List<String> permissions) {
+                        ToastUitl.showShort("获取权限失败，请手动开启");
+
+                    }
+                });
+4.在需要更新的地方调用DialogUtils.getVersionData(this,siteID);即可弹出提示框，点击确定开始更新，注意siteID(站点id)是自己根据项目作为参数传入
+
+5.具体使用请查看主工程MainActivity例子
+
+
+

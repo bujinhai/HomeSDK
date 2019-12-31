@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jinshu.homelibrary">
+
+    <application
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".utils.facp.AcpActivity" />
+        <activity android:name=".ui.activity.ShopListActivity" />
+        <activity android:name=".ui.activity.ShopDetailActivity" />
+        <activity android:name=".ui.activity.SearchActivity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+    </application>
+
+</manifest>
